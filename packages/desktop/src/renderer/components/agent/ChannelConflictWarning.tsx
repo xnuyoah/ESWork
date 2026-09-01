@@ -44,7 +44,7 @@ export const ChannelConflictWarning: React.FC<ChannelConflictWarningProps> = ({
             Your {platformName} bot credentials are also configured in OpenClaw. This means:
             <ul>
               <li>
-                <Text type='error'>✗ Switching agents in AionUi will have no effect</Text>
+                <Text type='error'>✗ Switching agents in ESWork will have no effect</Text>
               </li>
               <li>
                 <Text type='error'>✗ Messages are processed by OpenClaw's agent</Text>

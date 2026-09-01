@@ -11,6 +11,7 @@ import {
   normalizeLanguageCode,
   mergeWithFallback,
   ensureAndSwitch,
+  applyAppBranding,
   type LocaleData,
 } from '@/common/config/i18n';
 
@@ -34,7 +35,7 @@ import faIR from '@renderer/services/i18n/locales/fa-IR/index';
 // NOTE: When adding a new language, add a static import above and an entry here.
 // These MUST be static imports (not dynamic) because the main process is bundled
 // by Vite and the JSON files won't exist on disk in production.
-const localeData: LocaleData = {
+const localeData: LocaleData = applyAppBranding({
   'en-US': enUS,
   'zh-CN': zhCN,
   'ja-JP': jaJP,
@@ -48,7 +49,7 @@ const localeData: LocaleData = {
   'es-ES': esES,
   'fr-FR': frFR,
   'fa-IR': faIR,
-};
+});
 
 const fallbackData = localeData[DEFAULT_LANGUAGE] ?? {};
 

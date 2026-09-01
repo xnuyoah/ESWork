@@ -13,6 +13,7 @@ import { useSettingsViewMode } from '../settingsViewContext';
 import { isElectronDesktop, openExternalUrl } from '@/renderer/utils/platform';
 import FeedbackReportModal from './FeedbackReportModal';
 import { ipcBridge } from '@/common';
+import { APP_NAME } from '@/common/config/constants';
 import { getIncludePrerelease, runUpdateCheck } from '@/renderer/components/settings/checkForUpdatesShared';
 import { UPDATE_AVAILABLE_EVENT } from '@/renderer/components/settings/useUpdateNotificationController';
 import { IS_DISCONTINUED_BUILD } from '@/renderer/utils/discontinuedBuild';
@@ -150,7 +151,7 @@ const AboutModalContent: React.FC = () => {
           {/* App Info Section */}
           <div className='flex flex-col items-center pb-24px'>
             <Typography.Title heading={3} className='text-24px font-bold text-t-primary mb-8px'>
-              AionUi
+              {APP_NAME}
             </Typography.Title>
             <Typography.Text className='text-14px text-t-secondary mb-12px text-center'>
               {t('settings.appDescription')}
@@ -162,7 +163,7 @@ const AboutModalContent: React.FC = () => {
               <div
                 className='text-t-primary cursor-pointer hover:text-t-secondary transition-colors p-4px'
                 onClick={() =>
-                  openLink('https://github.com/iOfficeAI/AionUi').catch((error) =>
+                  openLink('https://github.com/xnuyoah/ESWork').catch((error) =>
                     console.error('Failed to open link:', error)
                   )
                 }

@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { normalizeLanguageCode, DEFAULT_LANGUAGE } from '@/common/config/i18n';
+import { applyAppBranding, normalizeLanguageCode, DEFAULT_LANGUAGE } from '@/common/config/i18n';
 
 describe('i18n', () => {
   describe('normalizeLanguageCode', () => {
@@ -54,6 +54,28 @@ describe('i18n', () => {
     it('falls back to the default language for unsupported codes', () => {
       expect(normalizeLanguageCode('it')).toBe(DEFAULT_LANGUAGE);
       expect(normalizeLanguageCode('')).toBe(DEFAULT_LANGUAGE);
+    });
+  });
+
+  describe('applyAppBranding', () => {
+    it('rebrands display strings recursively without changing technical identifiers', () => {
+      const branded = applyAppBranding({
+        'en-US': {
+          title: 'AionUi',
+          description: 'Use AionUI everywhere',
+          nested: { labels: ['AionUi Butler', 42, null] },
+          technical: 'aionui-web',
+        },
+      });
+
+      expect(branded).toEqual({
+        'en-US': {
+          title: 'ESWork',
+          description: 'Use ESWork everywhere',
+          nested: { labels: ['ESWork Butler', 42, null] },
+          technical: 'aionui-web',
+        },
+      });
     });
   });
 });

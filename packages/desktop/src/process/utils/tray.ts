@@ -14,6 +14,7 @@ import {
 import * as path from 'path';
 import { ipcBridge } from '@/common';
 import i18n from '@process/services/i18n';
+import { APP_NAME } from '@/common/config/constants';
 
 let tray: TrayInstance | null = null;
 let closeToTrayEnabled = false;
@@ -262,7 +263,7 @@ export const createOrUpdateTray = (): void => {
   try {
     const icon = getTrayIcon();
     tray = new Tray(icon);
-    tray.setToolTip('AionUi');
+    tray.setToolTip(APP_NAME);
     void buildTrayContextMenu().then((menu) => tray?.setContextMenu(menu));
 
     // Double-click: always show/focus (Windows/Linux; macOS rarely fires this).

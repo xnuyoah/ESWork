@@ -83,6 +83,12 @@ describe('AboutModalContent update ready state', () => {
     vi.unstubAllGlobals();
   });
 
+  it('shows the ESWork application name', () => {
+    render(<AboutModalContent />);
+
+    expect(screen.getByRole('heading', { name: 'ESWork' })).toBeInTheDocument();
+  });
+
   it('replaces check update with ready-to-install when an update package is ready', async () => {
     render(<AboutModalContent />);
 
