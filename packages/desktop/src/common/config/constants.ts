@@ -8,6 +8,9 @@
  * AionUI应用程序共用常量
  */
 
+/** User-facing application name. Internal identifiers stay compatible with upstream. */
+export const APP_NAME = 'ESWork';
+
 // ===== 应用内浏览器 / In-app browser =====
 
 /**

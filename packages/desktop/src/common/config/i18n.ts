@@ -9,6 +9,7 @@
  */
 
 import i18nConfig from '@/common/config/i18n-config.json';
+import { APP_NAME } from '@/common/config/constants';
 
 export const SUPPORTED_LANGUAGES = i18nConfig.supportedLanguages;
 export const DEFAULT_LANGUAGE = i18nConfig.fallbackLanguage;
@@ -86,6 +87,41 @@ export function mergeWithFallback(
 }
 
 export type LocaleData = Record<string, Record<string, unknown>>;
+
+const UPSTREAM_APP_NAME_PATTERN = /AionUi|AionUI/g;
+
+function brandTranslationValue(value: unknown): unknown {
+  if (typeof value === 'string') {
+    return value.replace(UPSTREAM_APP_NAME_PATTERN, APP_NAME);
+  }
+  if (Array.isArray(value)) {
+    return value.map(brandTranslationValue);
+  }
+  if (isPlainObject(value)) {
+    return brandTranslationRecord(value);
+  }
+  return value;
+}
+
+function brandTranslationRecord(data: Record<string, unknown>): Record<string, unknown> {
+  const branded: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(data)) {
+    branded[key] = brandTranslationValue(value);
+  }
+  return branded;
+}
+
+/**
+ * Replace the upstream display name in translation values without modifying
+ * locale source files or compatibility-sensitive identifiers.
+ */
+export function applyAppBranding(localeData: LocaleData): LocaleData {
+  const branded: LocaleData = {};
+  for (const [locale, data] of Object.entries(localeData)) {
+    branded[locale] = brandTranslationRecord(data);
+  }
+  return branded;
+}
 
 /**
  * Ensure a resource bundle is loaded, then switch i18next to the given language.

@@ -9,6 +9,7 @@ import {
   normalizeLanguageCode,
   mergeWithFallback,
   ensureAndSwitch,
+  applyAppBranding,
   type LocaleData,
   type SupportedLanguage,
 } from '@/common/config/i18n';
@@ -36,7 +37,7 @@ export type { SupportedLanguage } from '@/common/config/i18n';
 
 export const supportedLanguages = i18nConfig.supportedLanguages;
 
-const localeData: LocaleData = {
+const localeData: LocaleData = applyAppBranding({
   'en-US': enUS,
   'zh-CN': zhCN,
   'ja-JP': jaJP,
@@ -50,7 +51,7 @@ const localeData: LocaleData = {
   'es-ES': esES,
   'fr-FR': frFR,
   'fa-IR': faIR,
-};
+});
 
 const fallbackLocale = localeData[DEFAULT_LANGUAGE] ?? {};
 

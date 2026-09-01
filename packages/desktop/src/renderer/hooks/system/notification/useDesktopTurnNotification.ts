@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ipcBridge } from '@/common';
 import { configService } from '@/common/config/configService';
+import { APP_NAME } from '@/common/config/constants';
 import { isElectronDesktop } from '@/renderer/utils/platform';
 import { getSnapshotConversationName } from '@/renderer/pages/conversation/GroupedHistory/hooks/useConversationListSync';
 import { createBrowserNotificationController, truncateConversationName } from './browserNotificationCore';
@@ -48,7 +49,7 @@ export const useDesktopTurnNotification = (): void => {
       show: ({ body, conversationId, kind }) => {
         // This issue scopes desktop notifications to turn completion only.
         if (kind !== 'turnCompleted') return;
-        void ipcBridge.notification.show.invoke({ title: 'AionUi', body, conversation_id: conversationId });
+        void ipcBridge.notification.show.invoke({ title: APP_NAME, body, conversation_id: conversationId });
       },
     });
 

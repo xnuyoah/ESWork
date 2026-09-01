@@ -22,6 +22,19 @@ function yamlBlock(content: string, key: string): string {
 }
 
 describe('release packaging configuration', () => {
+  it('brands the WebUI metadata as ESWork', () => {
+    const indexHtml = readProjectFile('packages/desktop/src/renderer/index.html');
+    const manifest = JSON.parse(readProjectFile('public/manifest.webmanifest')) as {
+      name: string;
+      short_name: string;
+    };
+
+    expect(indexHtml).toContain('<meta name="application-name" content="ESWork" />');
+    expect(indexHtml).toContain('<title>ESWork</title>');
+    expect(manifest.name).toBe('ESWork');
+    expect(manifest.short_name).toBe('ESWork');
+  });
+
   it('keeps mac zip artifacts enabled', () => {
     const config = readProjectFile('packages/desktop/electron-builder.yml');
     const macBlock = yamlBlock(config, 'mac');
