@@ -27,12 +27,16 @@ describe('release packaging configuration', () => {
     const manifest = JSON.parse(readProjectFile('public/manifest.webmanifest')) as {
       name: string;
       short_name: string;
+      icons: Array<{ src: string }>;
     };
 
     expect(indexHtml).toContain('<meta name="application-name" content="ESWork" />');
     expect(indexHtml).toContain('<title>ESWork</title>');
+    expect(indexHtml).toContain('href="./pwa/icon-192.png?v=eswork-20260901"');
+    expect(indexHtml).toContain('sizes="192x192"');
     expect(manifest.name).toBe('ESWork');
     expect(manifest.short_name).toBe('ESWork');
+    expect(manifest.icons.every(({ src }) => src.includes('?v=eswork-20260901'))).toBe(true);
   });
 
   it('keeps mac zip artifacts enabled', () => {
